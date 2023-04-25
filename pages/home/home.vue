@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<search-nav></search-nav>
 		<!-- 轮播图 -->
 		<view class="swiper">
 			<swiper autoplay indicator-dots indicator-color="white" indicator-active-color="red" circular
@@ -25,7 +26,7 @@
 				<image :src="item.floor_title.image_src"/>
 			</view>
 			<view class="content">
-				<view class="" v-for="item1,index1 in item.product_list" :key="index" @click="toDetail()">
+				<view class="" v-for="item1,index1 in item.product_list" :key="index1" @click="toDetail(item1.navigator_url)">
 					<image :src="item1.image_src"/>
 				</view>
 			</view>
@@ -87,8 +88,11 @@
 					url:'/pages/cate/cate'
 				})
 			},
-			toDetail(id){
-				
+			toDetail(url){
+				var query = url.slice(url.indexOf('query=')+6)
+				uni.navigateTo({
+					url:'/subpag/goods_list/goods_list?query='+query
+				})
 			},
 			async getFloorList(){
 				const res = await uni.$http.get(`/api/public/v1/home/floordata`)

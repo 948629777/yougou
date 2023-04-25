@@ -27,6 +27,10 @@
 		}
 
 	}],
+	"usingComponents":{
+		"search-nav":"/components/search-nav/search-nav",
+		"paynav":"/components/paynav/paynav"
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "优购",
@@ -73,6 +77,24 @@
 					"enablePullDownRefresh": false
 				}
 			}
-		]
+		    ,{
+                    "path" : "goods_list/goods_list",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+                ,{
+                    "path" : "search_page/search_page",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
 	}]
 }

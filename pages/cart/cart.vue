@@ -1,6 +1,7 @@
 <template>
 	<view>
-		
+		111
+		<!-- <paynav></paynav> -->
 	</view>
 </template>
 
