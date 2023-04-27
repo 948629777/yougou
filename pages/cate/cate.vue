@@ -33,7 +33,9 @@
 	</view>
 </template>
 <script>
+	import mix from '@/mixins/mixins'
 	export default {
+		mixins:[mix],
 		data() {
 			return {
 				boxHeight:0,
@@ -45,7 +47,6 @@
 		methods: {
 			async getCateList() {
 				const res = await uni.$http.get('/api/public/v1/categories')
-				console.log(res.data);
 				this.cateList = res.data.message
 			},
 			// 大标题显示判断

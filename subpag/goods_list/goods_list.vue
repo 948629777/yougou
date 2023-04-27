@@ -22,6 +22,7 @@
 			return {
 				total:1,
 				goods: [],
+				isLoading:true,
 				queryInfo: {
 					query: '',
 					cid: '',
@@ -31,11 +32,16 @@
 			};
 		},
 		methods: {
-			async getGoodsList() {
+			async getGoodsList(cb) {
+				// 节流
+				if(!this.isLoading) return
+				this.isLoading = false
 				const res = await uni.$http.get('/api/public/v1/goods/search', this.queryInfo)
+				cb&&cb()
 				this.total = res.data.message.total
-				this.goods = res.data.message.goods
+				this.goods = [...this.goods,...res.data.message.goods]
 				this.queryInfo.pagenum++
+				this.isLoading = true
 			},
 			toDetail(id){
 				uni.navigateTo({
@@ -47,8 +53,8 @@
 			}
 		},
 		onLoad(op) { 
-			this.queryInfo.query = op.query
-			this.queryInfo.cid = op.cid
+			this.queryInfo.query = op.query||''
+			this.queryInfo.cid = op.cid||''
 			this.getGoodsList()
 		},
 		onReachBottom() {
@@ -60,6 +66,11 @@
 				return
 			}
 			this.getGoodsList()
+		},
+		onPullDownRefresh(){
+			this.queryInfo.pagenum=1
+			this.goods = []
+			this.getGoodsList(()=>uni.stopPullDownRefresh())
 		}
 	}
 </script>

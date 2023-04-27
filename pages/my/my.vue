@@ -5,7 +5,9 @@
 </template>
 
 <script>
+	import mix from '@/mixins/mixins' 
 	export default {
+		mixins:[mix],
 		data() {
 			return {
 				
@@ -18,5 +20,7 @@
 </script>
 
 <style>
-
+view{
+	
+}
 </style>

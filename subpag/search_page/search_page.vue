@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="searchipt">
-			<uni-search-bar @confirm="search" :focus="true" v-model.trim="queryInfo.query"
+			<uni-search-bar :focus="true" v-model.trim="queryInfo.query"
 				@input="searchInput" cancelButton="none" radius="15">
 			</uni-search-bar>
 		</view>
@@ -45,9 +45,6 @@
 			};
 		},
 		methods: {
-			search() {
-				console.log('搜索事件');
-			},
 			searchInput() {
 				// 防抖
 				if(this.searchInputTimer){
@@ -65,7 +62,7 @@
 					if(index===-1){
 						// 未重复将查询值加入数组
 						this.searchHistory.push(this.queryInfo.query)
-						// 存入本地
+						// 历史记录存入本地
 						uni.setStorage({
 							key:'searchHistory',
 							data:this.searchHistory
@@ -97,7 +94,9 @@
 			},
 			// 清空历史记录
 			clearHistory(){
-				uni.clearStorage()
+				uni.removeStorage({
+					key:'searchHistory'
+				})
 				this.searchHistory = []
 			},
 			// 请求推荐列表

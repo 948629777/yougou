@@ -6,8 +6,8 @@
 			<swiper autoplay indicator-dots indicator-color="white" indicator-active-color="red" circular
 				interval="2000">
 				<swiper-item v-for="item,index in swiperList" :key="index">
-					<navigator :url="'/subpag/goods_detail/goods_detail?goodsId='+item.goods_id">
-						<image :src="item.image_src"/>
+					<navigator :url="'/subpag/goods_detail/goods_detail?id='+item.goods_id">
+						<image :src="item.image_src" />
 					</navigator>
 				</swiper-item>
 			</swiper>
@@ -21,13 +21,15 @@
 			</view>
 		</view>
 		<!-- 楼层导航 -->
+		<p style="display: none;">{{this.sum}}</p>
 		<view class="floornav" v-for="item,index in floorList" :key="index">
 			<view class="title">
-				<image :src="item.floor_title.image_src"/>
+				<image :src="item.floor_title.image_src" />
 			</view>
 			<view class="content">
-				<view class="" v-for="item1,index1 in item.product_list" :key="index1" @click="toDetail(item1.navigator_url)">
-					<image :src="item1.image_src"/>
+				<view class="" v-for="item1,index1 in item.product_list" :key="index1"
+					@click="toDetail(item1.navigator_url)">
+					<image :src="item1.image_src" />
 				</view>
 			</view>
 		</view>
@@ -35,12 +37,14 @@
 </template>
 
 <script>
+	import mix from '@/mixins/mixins'
 	export default {
+		mixins:[mix],
 		data() {
 			return {
 				swiperList: [],
 				cateList: [],
-				floorList:[]
+				floorList: []
 			};
 		},
 		methods: {
@@ -82,19 +86,19 @@
 					});
 				}
 			},
-			navTo(e){
-				if(e!=0) return
+			navTo(e) {
+				if (e != 0) return
 				uni.switchTab({
-					url:'/pages/cate/cate'
+					url: '/pages/cate/cate'
 				})
 			},
-			toDetail(url){
-				var query = url.slice(url.indexOf('query=')+6)
+			toDetail(url) {
+				var query = url.slice(url.indexOf('query=') + 6)
 				uni.navigateTo({
-					url:'/subpag/goods_list/goods_list?query='+query
+					url: '/subpag/goods_list/goods_list?query=' + query
 				})
 			},
-			async getFloorList(){
+			async getFloorList() {
 				const res = await uni.$http.get(`/api/public/v1/home/floordata`)
 				if (res.data.meta.status === 200) {
 					this.floorList = res.data.message
@@ -106,7 +110,7 @@
 						duration: 1500,
 						mask: false,
 						success: (result) => {
-				
+
 						},
 						fail: () => {},
 						complete: () => {}
@@ -127,57 +131,70 @@
 		width: 100%;
 		height: 330rpx;
 	}
-	.cate{
+
+	.cate {
 		width: 100%;
 		display: flex;
 		padding-top: 15rpx;
-		view{
+
+		view {
 			flex: 1;
 		}
 	}
-	.cate navigator{
+
+	.cate navigator {
 		width: 100%;
 		text-align: center;
-		image{
+
+		image {
 			width: 70%;
 			height: 140rpx;
 		}
 	}
-	.title>image{
+
+	.title>image {
 		margin: 10px 0;
 		height: 60rpx;
 	}
-	.content{
+
+	.content {
 		display: grid;
-		grid-gap:20rpx;
+		grid-gap: 20rpx;
 		grid-template-areas:
-		    "a a b b b c c"
-		    "a a d d e e e"
+			"a a b b b c c"
+			"a a d d e e e"
 	}
-	.content image{
+
+	.content image {
 		width: 100%;
 		height: 100%;
 	}
-	.content>view{
+
+	.content>view {
 		height: 250rpx;
 	}
-	.content>view:nth-child(1){
+
+	.content>view:nth-child(1) {
 		height: 520rpx;
 	}
-	.content>view:nth-child(1){
+
+	.content>view:nth-child(1) {
 		grid-area: a;
 	}
-	.content>view:nth-child(2){
+
+	.content>view:nth-child(2) {
 		grid-area: b;
 	}
-	.content>view:nth-child(3){
+
+	.content>view:nth-child(3) {
 		grid-area: c;
 	}
-	.content>view:nth-child(4){
+
+	.content>view:nth-child(4) {
 		grid-area: d;
 	}
-	.content>view:nth-child(5){
+
+	.content>view:nth-child(5) {
 		grid-area: e;
 	}
-	
 </style>
