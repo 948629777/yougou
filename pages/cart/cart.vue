@@ -1,32 +1,15 @@
 <template>
 	<view>
 		<view class="main" v-if="goods.length!=0">
-			<view class="addressBox">
-				<view class="user">
-					<view>
-						收件人:啊啊啊
-					</view>
-					<view>
-						电话:11111111111
-					</view>
-				</view>
-				<view class="address">
-					<view class="">
-						收货地址：
-					</view>
-					<view class="">
-						湖南省湖南省湖南省湖南省湖南省湖南省湖南省湖南省湖南省
-					</view>
-					<view class="">
-
-					</view>
-				</view>
-			</view>
+			<address-com></address-com>
 			<view class="borderImage">
 				<image src="../../static/cart_border@2x.png"></image>
 			</view>
+			<view class="carIcon">
+				<uni-icons class="icon" type="shop" size="30"></uni-icons> 购物车
+			</view>
 			<view class="carGoods">
-				<view class="item" v-for="item,index in goods" :key="" :style="'left:'+item.width+'px;'"
+				<view class="item" v-for="item,index in goods" :key="item.goods_id" :style="'left:'+item.width+'px;'"
 					@touchend="touchend($event,item,index)" @touchstart="touchstart($event)"
 					@touchmove="touchmove($event,item,index)">
 					<view class="radio">
@@ -59,7 +42,7 @@
 						</label>
 					</view>
 					<view class="">
-						合计:<span style="color: red;">￥{{pirceSum}}</span>
+						合计:<span style="color: red;">￥{{pirceSum.toFixed(2)}}</span>
 					</view>
 					<view class="">
 						<span>结算（{{checkSum}}）</span>
@@ -132,9 +115,6 @@
 			},
 			// 计数器change事件
 			changeValue(e) {
-				console.log('值发生了改变');
-				console.log(e);
-				console.log(this.goods);
 				if(this.numChangeTimer){
 					clearTimeout(this.numChangeTimer)
 				}
@@ -206,40 +186,10 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss"> 
 	.main{
 		overflow-x: hidden;
 	}
-	.addressBox {
-		font-size: 12px;
-		padding: 5px;
-
-		// border-image: url("/static/cart_border@2x.png") 0 0 100% 0 / 10px 0 repeat;
-		>.user {
-			margin: 10px 0;
-			display: flex;
-			justify-content: space-between;
-		}
-
-		>.address {
-			margin: 10px 0;
-			display: flex;
-
-			>view {
-				vertical-align: middle;
-				flex: 2;
-			}
-
-			>view:nth-child(2) {
-				flex: 6;
-			}
-
-			>view:nth-child(3) {
-				flex: 3;
-			}
-		}
-	}
-
 	.borderImage {
 		width: 100%;
 		height: 10px;
@@ -248,6 +198,14 @@
 		>image {
 			width: 100%;
 			height: 5px;
+		}
+	}
+	.carIcon{
+		vertical-align: middle;
+		font-size: 12px;
+		>.icon{
+			margin: 5px 10px 5px 5px;
+			vertical-align: middle;
 		}
 	}
 	.carGoods{

@@ -29,7 +29,8 @@
 	}],
 	"usingComponents":{
 		"search-nav":"/components/search-nav/search-nav",
-		"paynav":"/components/paynav/paynav"
+		"paynav":"/components/paynav/paynav",
+		"address-com":"/components/address-com/address-com"
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
@@ -96,5 +97,6 @@
                 
                 }
             ]
-	}]
+	}],
+	"requiredPrivateInfos":["chooseAddress"]
 }
